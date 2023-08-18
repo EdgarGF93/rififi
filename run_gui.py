@@ -1,5 +1,5 @@
 
-
+from fourier_methods import Fourier
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLineEdit, QLabel, QSpinBox
 from silx.gui.plot.PlotWindow import Plot1D, Plot2D
 import numpy as np
@@ -184,6 +184,27 @@ class RFFWidget(RFFWidgetLayOut):
             self.update_signal(),
             self.update_fft(),
             )
+        )
+
+    def create_fourier_instance(self):
+        dt = self.lineedit_dt.text()
+        dt = float(dt)
+        t0 = float(self.spinbox_t0.value())
+        tf = float(self.spinbox_tf.value())
+        f1 = float(self.spinbox_freq_1.value())
+        f2 = float(self.spinbox_freq_2.value())
+        f3 = float(self.spinbox_freq_3.value())
+        f4 = float(self.spinbox_freq_4.value())
+        n1 = float(self.spinbox_noise_1.value())
+        n2 = float(self.spinbox_noise_2.value())
+        self.fourier = Fourier(
+            dt=dt,
+            t0=t0,
+            tf=tf,
+        )
+        self.fourier.generate_signal(
+            freqs=np.array([f1, f2, f3, f4]),
+            noise_amplitudes=np.array([n1, n2])
         )
 
     def update_signal(self):
