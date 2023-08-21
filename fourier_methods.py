@@ -69,6 +69,9 @@ class Fourier():
             plt.contourf(X, Y, psd2)
             plt.show()
 
+    def fft_ndim(self):
+        pass
+
 
 from scipy import signal   
 
