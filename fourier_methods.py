@@ -69,4 +69,41 @@ class Fourier():
             plt.contourf(X, Y, psd2)
             plt.show()
 
-        
+
+from scipy import signal   
+
+class Pulse():
+    def __init__(self) -> None:
+        self.pulse = signal.gausspulse()
+        pass
+
+
+class Chirp():
+    def __init__(self, t0=0, t1=1, dt=0.001) -> None:
+        self.t0 = t0
+        self.t1 = t1
+        self.dt = dt
+        self.generate_time_vector()
+
+    def generate_time_vector(self):
+        self.times = np.arange(self.t0, self.t1, self.dt)
+    
+    def generate_signal(self, f0=1, f1=10):
+        self.signal = signal.chirp(
+            t=self.times,
+            f0=f0,
+            t1=self.t1,
+            f1=f1,
+            method='quadratic',
+        )
+
+    def plot_1d(self):
+        plt.plot(self.times, self.signal)
+
+    def plot_2d(self):
+        mat = np.array(
+            [
+                self.signal for _ in range(self.times.size)
+            ]
+        )
+        plt.imshow(mat)
